@@ -20,7 +20,7 @@
 					<div id="idCheckDuplicated" class="small text-danger d-none">
 						이미 사용중인 ID입니다.
 					</div>
-					<div id="inCheckOk" class="smaal text-success d-none">
+					<div id="idCheckOk" class="small text-success d-none">
 						사용 가능한 ID입니다.
 					</div>
 				</td>
