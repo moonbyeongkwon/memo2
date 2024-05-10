@@ -1,5 +1,37 @@
 package com.memo2.post;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.memo2.post.bo.PostBO;
+import com.memo2.post.domain.Post;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+@RequestMapping("/post")
 public class PostController {
 
+	@Autowired
+	private PostBO postBO;
+	
+	@GetMapping("/post-list-view")
+	public String postListView(Model model, HttpSession session) {
+		//	로그인 여부
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			return "redirect:/user/sign-in-view";
+		}
+		List<Post> postList = postBO.getPostList();
+		
+		model.addAttribute("viewName", "post/postList");
+		model.addAttribute("postList", postList);
+		
+		return "template/layout";
+	}
 }
