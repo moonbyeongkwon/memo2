@@ -19,10 +19,14 @@
 			<tr>
 				<td>${post.id}</td>
 				<td><a href="/post/post-detail-view?postId=${post.id}">${post.subject}</a></td>
-				<td><fmt:formDate value="${post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
-				<td></td>
+				<td><fmt:formatDate value="${post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
+				<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
 			</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<div class="d-flex justify-content-end">
+		<a href="/post/post-create-view" class="btn btn-primary">글쓰기</a>
+	</div>
 </div>
