@@ -14,14 +14,14 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 <body>
-	<div id="wrap" class="bg-primary">
-		<header class="bg-info">
+	<div id="wrap" class="">
+		<header class="">
 			<jsp:include page="../include/header.jsp" />
 		</header>
-		<section class="contents bg-warning">
+		<section class="contents">
 			<jsp:include page="../${viewName}.jsp" />
 		</section>
-		<footer class="bg-danger">
+		<footer class="">
 			<jsp:include page="../include/footer.jsp" />
 		</footer>
 	</div>

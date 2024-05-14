@@ -10,6 +10,7 @@
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
+				<th>글쓴이</th>
 				<th>작성날짜</th>
 				<th>수정날짜</th>
 			</tr>
@@ -19,6 +20,7 @@
 			<tr>
 				<td>${post.id}</td>
 				<td><a href="/post/post-detail-view?postId=${post.id}">${post.subject}</a></td>
+				<td>${}</td>
 				<td><fmt:formatDate value="${post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
 				<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
 			</tr>

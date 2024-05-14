@@ -36,4 +36,18 @@
  		)
  	</insert>
  	
+ 	<select id="selectPostByPostId" parameterType="map" resultType="com.memo2.post.domain.Post">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`subject`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`id` = #{id}
+ 	</select>
  </mapper>
