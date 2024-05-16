@@ -16,13 +16,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${postList}" var="post">
+			<c:forEach items="${postViewList}" var="postView">
 			<tr>
-				<td>${post.id}</td>
-				<td><a href="/post/post-detail-view?postId=${post.id}">${post.subject}</a></td>
-				<td>${}</td>
-				<td><fmt:formatDate value="${post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
-				<td><fmt:formatDate value="${post.updatedAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
+				<td>${postView.post.id}</td>
+				<td><a href="/post/post-detail-view?postId=${postView.post.id}">${postView.post.subject}</a></td>
+				<td>${postView.user.loginId}</td>
+				<td><fmt:formatDate value="${postView.post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
+				<td><fmt:formatDate value="${postView.post.updatedAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
 			</tr>
 			</c:forEach>
 		</tbody>

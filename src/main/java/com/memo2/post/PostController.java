@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.memo2.post.bo.PostBO;
 import com.memo2.post.domain.Post;
+import com.memo2.post.domain.PostView;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,16 +23,17 @@ public class PostController {
 	private PostBO postBO;
 	
 	@GetMapping("/post-list-view")
-	public String postListView(Model model, HttpSession session) {
+	public String postView(Model model, HttpSession session) {
 		//	로그인 여부
 		Integer userId = (Integer)session.getAttribute("userId");
 		if (userId == null) {
 			return "redirect:/user/sign-in-view";
 		}
-		List<Post> postList = postBO.getPostList();
+		List<PostView> postViewList = postBO.generatePostViewList(userId);
 		
+		model.addAttribute("postViewList", postViewList);
 		model.addAttribute("viewName", "post/postList");
-		model.addAttribute("postList", postList);
+		
 		return "template/layout";
 	}
 	
@@ -58,4 +60,5 @@ public class PostController {
 		model.addAttribute("viewName", "post/postDetail");
 		return "template/layout";
 	}
+	
 }

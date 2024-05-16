@@ -12,6 +12,7 @@ import com.memo2.post.domain.Post;
 import com.memo2.post.domain.PostView;
 import com.memo2.post.mapper.PostMapper;
 import com.memo2.user.bo.UserBO;
+import com.memo2.user.entity.UserEntity;
 
 @Service
 public class PostBO {
@@ -47,10 +48,21 @@ public class PostBO {
 		return postMapper.selectPostByPostId(postId);
 	}
 	
-	public List<PostView> generatePostViewList() {
+	public List<PostView> generatePostViewList(Integer userId) {
 		List<PostView> postViewList = new ArrayList<>();
 		
 		List<Post> postList = postMapper.selectPostList();
+		
+		for (Post post : postList) {
+			PostView postView = new PostView();
+			
+			postView.setPost(post);
+			
+			UserEntity user = userBO.getUserEntityById(post.getUserId());
+			postView.setUser(user);
+			
+			postViewList.add(postView);
+		}
 		
 		
 		return postViewList;
