@@ -20,7 +20,7 @@
 			<tr>
 				<td>${postView.post.id}</td>
 				<td><a href="/post/post-detail-view?postId=${postView.post.id}">${postView.post.subject}</a></td>
-				<td>${postView.user.loginId}</td>
+				<td>${postView.user.name}</td>
 				<td><fmt:formatDate value="${postView.post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
 				<td><fmt:formatDate value="${postView.post.updatedAt}" pattern="yyyy년 M월 d일 HH:mm:ss" /></td>
 			</tr>
