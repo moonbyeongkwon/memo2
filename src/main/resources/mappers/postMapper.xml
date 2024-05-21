@@ -50,4 +50,42 @@
 		WHERE
 			`id` = #{id}
  	</select>
+ 	
+ 	<select id="selectPostByPostIdUserId" parameterType="map" resultType="com.memo2.post.domain.Post">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`subject`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+			AND `id` = #{postId}
+ 			
+ 	</select>
+ 	
+ 	<update id="updatePostByPostId" parameterType="map">
+ 		UPDATE `post`
+ 		SET
+ 				`subject` = #{subject}
+ 				, `content` = #{content}
+ 				<if test="imagePath != null">
+ 				, imagePath = #{imagePath}
+ 				</if>
+ 				, `updatedAt` = NOW()
+ 		WHERE
+ 				`id` = #{postId}
+ 	</update>
+ 	
+ 	<delete id="deletePostById" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`post`
+ 		WHERE
+ 			`id` = #{postId}
+ 	</delete>
  </mapper>

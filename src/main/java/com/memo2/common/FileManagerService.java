@@ -46,6 +46,32 @@ public class FileManagerService {
 		return "/images/" + directoryName + file.getOriginalFilename();
 		
 	}
-	
+	//	input: imagePath
+	//	output: X
+	public void deleteFile(String imagePath) {
+		//	주소패스에 겹치게 되는 /images/ 는 지운다.
+		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath.replace("/images/", ""));
+		
+		//	삭제할 이미지가 존재하는가?
+		if (Files.exists(path)) {
+			//	이미지 파일 삭제
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				log.warn("[파일 매너지] 이미지 삭제 실패. path:{}", path.toString());
+				return;
+			}
+			
+			//	폴더 삭제
+			path = path.getParent();
+			if (Files.exists(path)) {
+				try {
+					Files.delete(path);
+				} catch (IOException e) {
+					log.warn("[파일 매니저] 폴더 삭제 실패. path:{}", path.toString());
+				}
+			}
+		}
+	}
 	
 }
