@@ -23,14 +23,19 @@ public class PostController {
 	private PostBO postBO;
 	
 	@GetMapping("/post-list-view")
-	public String postView(Model model, HttpSession session) {
+	public String postView(
+			@RequestParam(value = "nextId", required = false) Integer nextIdParam,
+			Model model, HttpSession session) {
 		//	로그인 여부
 		Integer userId = (Integer)session.getAttribute("userId");
 		if (userId == null) {
 			return "redirect:/user/sign-in-view";
 		}
-		List<PostView> postViewList = postBO.generatePostViewList(userId);
+		List<PostView> postViewList = postBO.generatePostViewList(userId, nextIdParam);
 		
+		int nextId = 0;
+		
+		model.addAttribute("nextId", nextId);
 		model.addAttribute("postViewList", postViewList);
 		model.addAttribute("viewName", "post/postList");
 		

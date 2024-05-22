@@ -1,6 +1,7 @@
 package com.memo2.post.bo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -21,6 +22,8 @@ public class PostBO {
 	
 	private Logger logger = LoggerFactory.getLogger(PostBO.class);
 	
+	private static final int POST_MAX_SIZE = 3;
+	
 	@Autowired
 	private UserBO userBO;
 
@@ -30,10 +33,13 @@ public class PostBO {
 	@Autowired
 	private FileManagerService fileManager;
 	
-	public List<Post> getPostList() {
+	public List<Post> getPostList(Integer nextId) {
+		
+		String direction = null;
 		
 		
-		return postMapper.selectPostList();
+		
+		return postMapper.selectPostList(direction, POST_MAX_SIZE);
 	}
 	
 	//	input: subject, content, userId, userLoginId, MultipartFile
@@ -54,10 +60,10 @@ public class PostBO {
 		return postMapper.selectPostByPostId(postId);
 	}
 	
-	public List<PostView> generatePostViewList(Integer userId) {
+	public List<PostView> generatePostViewList(Integer userId, Integer nextId) {
 		List<PostView> postViewList = new ArrayList<>();
 		
-		List<Post> postList = postMapper.selectPostList();
+		List<Post> postList = postMapper.selectPostList(POST_MAX_SIZE);
 		
 		for (Post post : postList) {
 			PostView postView = new PostView();
