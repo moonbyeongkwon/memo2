@@ -32,8 +32,9 @@ public class PostController {
 			return "redirect:/user/sign-in-view";
 		}
 		List<PostView> postViewList = postBO.generatePostViewList(userId, nextIdParam);
-		
 		int nextId = 0;
+		
+		
 		
 		model.addAttribute("nextId", nextId);
 		model.addAttribute("postViewList", postViewList);

@@ -14,8 +14,25 @@
 			,`updatedAt`
 	 	FROM
 	 		`post`
+	 	ORDER BY `id` DESC
 	 	LIMIT ${limit}
  	</select>
+ 	
+ 	<select id="selectPostListNext" resultType="com.memo2.post.domain.Post">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`subject`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+	 	FROM
+	 		`post`
+	 	WHERE
+	 		`id`
+ 	</select>
+ 	
  	<insert id="insertPost" parameterType="map">
  		INSERT INTO `post`
  		(

@@ -35,11 +35,14 @@ public class PostBO {
 	
 	public List<Post> getPostList(Integer nextId) {
 		
-		String direction = null;
+		if (nextId == null) {	// 전체,첫 화면
+			List<Post> postList = postMapper.selectPostList(POST_MAX_SIZE);
+			return postList;
+		} else if (nextId != null) {	// 다음
+			
+		}
 		
-		
-		
-		return postMapper.selectPostList(direction, POST_MAX_SIZE);
+		return new ArrayList<>();
 	}
 	
 	//	input: subject, content, userId, userLoginId, MultipartFile
@@ -63,7 +66,7 @@ public class PostBO {
 	public List<PostView> generatePostViewList(Integer userId, Integer nextId) {
 		List<PostView> postViewList = new ArrayList<>();
 		
-		List<Post> postList = postMapper.selectPostList(POST_MAX_SIZE);
+		List<Post> postList = getPostList(nextId);
 		
 		for (Post post : postList) {
 			PostView postView = new PostView();

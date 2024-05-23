@@ -10,9 +10,7 @@ import com.memo2.post.domain.Post;
 
 @Mapper
 public interface PostMapper {
-	public List<Post> selectPostList(
-			@Param("direction") String direction,
-			@Param("limit") int limit);
+	
 	
 
 	public List<Post> selectPostList(
