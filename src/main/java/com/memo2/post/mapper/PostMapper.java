@@ -14,7 +14,11 @@ public interface PostMapper {
 	
 
 	public List<Post> selectPostList(
-			@Param("limit") int limit);
+			int limit);
+	
+	public List<Post> selectPostListNext(
+			@Param("limit") int limit,
+			@Param("nextId") int nextId);
 	
 	public int insertPost(
 			@Param("userId") int userId,

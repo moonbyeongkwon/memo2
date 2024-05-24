@@ -36,6 +36,7 @@ public class PostController {
 		
 		
 		
+		
 		model.addAttribute("nextId", nextId);
 		model.addAttribute("postViewList", postViewList);
 		model.addAttribute("viewName", "post/postList");

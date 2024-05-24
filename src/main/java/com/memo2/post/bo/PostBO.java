@@ -39,7 +39,8 @@ public class PostBO {
 			List<Post> postList = postMapper.selectPostList(POST_MAX_SIZE);
 			return postList;
 		} else if (nextId != null) {	// 다음
-			
+			List<Post> postListNext = postMapper.selectPostListNext(POST_MAX_SIZE, nextId);
+			return postListNext;
 		}
 		
 		return new ArrayList<>();

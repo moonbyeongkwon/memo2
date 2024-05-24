@@ -18,7 +18,7 @@
 	 	LIMIT ${limit}
  	</select>
  	
- 	<select id="selectPostListNext" resultType="com.memo2.post.domain.Post">
+ 	<select id="selectPostListNext" resultType="com.memo2.post.domain.Post" parameterType="map">
  		SELECT
  			`id`
 			,`userId`
@@ -30,7 +30,11 @@
 	 	FROM
 	 		`post`
 	 	WHERE
-	 		`id`
+	 		<![CDATA[
+	 		`id` < #{nextId}
+	 		]]>
+	 		ORDER BY `id` DESC
+	 		LIMIT ${limit}
  	</select>
  	
  	<insert id="insertPost" parameterType="map">
