@@ -18,6 +18,34 @@
 	 	LIMIT ${limit}
  	</select>
  	
+ 	<select id="selectPostIdBySort" parameterType="map" resultType="int">
+ 		SELECT
+ 			`id`
+ 		FROM
+ 			`post`
+ 		ORDER BY `id` ${sort}
+ 		LIMIT 1
+ 	</select>
+ 	
+ 	<select id="selectPostListPrev" resultType="com.memo2.post.domain.Post" parameterType="map">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`subject`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+	 	FROM
+	 		`post`
+	 	WHERE
+	 		<![CDATA[
+	 		`id` > #{prevId}
+	 		]]>
+	 		ORDER BY `id` ASC
+	 		LIMIT ${limit}
+ 	</select>
+ 	
  	<select id="selectPostListNext" resultType="com.memo2.post.domain.Post" parameterType="map">
  		SELECT
  			`id`
@@ -36,6 +64,7 @@
 	 		ORDER BY `id` DESC
 	 		LIMIT ${limit}
  	</select>
+ 	
  	
  	<insert id="insertPost" parameterType="map">
  		INSERT INTO `post`

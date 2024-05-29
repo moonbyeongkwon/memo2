@@ -24,6 +24,7 @@ public class PostController {
 	
 	@GetMapping("/post-list-view")
 	public String postView(
+			@RequestParam(value = "prevId", required = false) Integer prevIdParam,
 			@RequestParam(value = "nextId", required = false) Integer nextIdParam,
 			Model model, HttpSession session) {
 		//	로그인 여부
@@ -31,16 +32,23 @@ public class PostController {
 		if (userId == null) {
 			return "redirect:/user/sign-in-view";
 		}
-		List<PostView> postViewList = postBO.generatePostViewList(userId, nextIdParam);
+		List<PostView> postViewList = postBO.generatePostViewList(userId, nextIdParam, nextIdParam);
+		
+		int prevId = 0;
 		int nextId = 0;
-		List<Post> postList = postBO.getPostList(nextIdParam);
-		if (postList.isEmpty() == false) {
-			nextId = postList.get(postBO.getPostList(nextIdParam).size() -1).getId();
+		if (postViewList.isEmpty() == false) {
+			prevId = postViewList.get(0).getPost().getId();
+			nextId = postViewList.get(postViewList.size() -1).getPost().getId();
+			
+			if (postBO.isNextLastPage(nextId)) {
+				nextId = 0;
+			}
 		}
 		
 		
 		
 		
+		model.addAttribute("prevId", prevId);
 		model.addAttribute("nextId", nextId);
 		model.addAttribute("postViewList", postViewList);
 		model.addAttribute("viewName", "post/postList");

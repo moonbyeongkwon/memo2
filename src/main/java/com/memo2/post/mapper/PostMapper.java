@@ -16,9 +16,15 @@ public interface PostMapper {
 	public List<Post> selectPostList(
 			int limit);
 	
+	public List<Post> selectPostListPrev(
+			@Param("limit") int limit,
+			@Param("prevId") int prevId);
+	
 	public List<Post> selectPostListNext(
 			@Param("limit") int limit,
 			@Param("nextId") int nextId);
+	
+	public int selectPostIdBySort(String sort);
 	
 	public int insertPost(
 			@Param("userId") int userId,

@@ -33,17 +33,27 @@ public class PostBO {
 	@Autowired
 	private FileManagerService fileManager;
 	
-	public List<Post> getPostList(Integer nextId) {
+	public List<Post> getPostList(Integer prevId, Integer nextId) {
 		
-		if (nextId == null) {	// 전체,첫 화면
+		if (nextId == null && prevId == null) {	// 전체,첫 화면
 			List<Post> postList = postMapper.selectPostList(POST_MAX_SIZE);
 			return postList;
 		} else if (nextId != null) {	// 다음
 			List<Post> postListNext = postMapper.selectPostListNext(POST_MAX_SIZE, nextId);
 			return postListNext;
+		} else if (prevId != null) {
+			List<Post> postListPrev = postMapper.selectPostListPrev(POST_MAX_SIZE, prevId);
+			
+			Collections.reverse(postListPrev);
+			return postListPrev;
 		}
 		
 		return new ArrayList<>();
+	}
+	
+	public boolean isNextLastPage(int nextId) {
+		int postId = postMapper.selectPostIdBySort("ASC");
+		return postId == nextId;
 	}
 	
 	//	input: subject, content, userId, userLoginId, MultipartFile
@@ -64,10 +74,10 @@ public class PostBO {
 		return postMapper.selectPostByPostId(postId);
 	}
 	
-	public List<PostView> generatePostViewList(Integer userId, Integer nextId) {
+	public List<PostView> generatePostViewList(Integer userId, Integer prevId, Integer nextId) {
 		List<PostView> postViewList = new ArrayList<>();
 		
-		List<Post> postList = getPostList(nextId);
+		List<Post> postList = getPostList(nextId, prevId);
 		
 		for (Post post : postList) {
 			PostView postView = new PostView();
