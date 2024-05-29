@@ -33,6 +33,10 @@ public class PostController {
 		}
 		List<PostView> postViewList = postBO.generatePostViewList(userId, nextIdParam);
 		int nextId = 0;
+		List<Post> postList = postBO.getPostList(nextIdParam);
+		if (postList.isEmpty() == false) {
+			nextId = postList.get(postBO.getPostList(nextIdParam).size() -1).getId();
+		}
 		
 		
 		
