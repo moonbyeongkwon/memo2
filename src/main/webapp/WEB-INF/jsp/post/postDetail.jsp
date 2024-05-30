@@ -35,10 +35,18 @@
 		</div>
 	</div>
 	</c:if>
-	
+	<br>
 	<c:if test="${userId != post.userId}">
 	<a href="/post/post-list-view" class="btn btn-dark">목록</a>
 	</c:if>
+</div>
+<div>
+	<%-- 댓글 쓰기 --%>
+	<div class="comment-wirte d-flex border-top mt-2">
+		<input type="text" class="form-control border-0 mr-2 comment-input" placeholder="댓글을 입력하세요.">
+		<button type="button" class="comment-btn btn btn-light">댓글 등록</button>
+		
+	</div>
 </div>
 
 <script>

@@ -32,13 +32,17 @@ public class PostController {
 		if (userId == null) {
 			return "redirect:/user/sign-in-view";
 		}
-		List<PostView> postViewList = postBO.generatePostViewList(userId, nextIdParam, nextIdParam);
+		List<PostView> postViewList = postBO.generatePostViewList(userId, prevIdParam, nextIdParam);
 		
 		int prevId = 0;
 		int nextId = 0;
 		if (postViewList.isEmpty() == false) {
 			prevId = postViewList.get(0).getPost().getId();
 			nextId = postViewList.get(postViewList.size() -1).getPost().getId();
+			
+			if (postBO.isPrevLastPage(prevId)) {
+				prevId = 0;
+			}
 			
 			if (postBO.isNextLastPage(nextId)) {
 				nextId = 0;

@@ -51,6 +51,11 @@ public class PostBO {
 		return new ArrayList<>();
 	}
 	
+	public boolean isPrevLastPage(int prevId) {
+		int postId = postMapper.selectPostIdBySort("DESC");
+		return postId == prevId;
+	}
+	
 	public boolean isNextLastPage(int nextId) {
 		int postId = postMapper.selectPostIdBySort("ASC");
 		return postId == nextId;
@@ -77,7 +82,7 @@ public class PostBO {
 	public List<PostView> generatePostViewList(Integer userId, Integer prevId, Integer nextId) {
 		List<PostView> postViewList = new ArrayList<>();
 		
-		List<Post> postList = getPostList(nextId, prevId);
+		List<Post> postList = getPostList(prevId, nextId);
 		
 		for (Post post : postList) {
 			PostView postView = new PostView();
