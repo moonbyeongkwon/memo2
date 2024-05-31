@@ -44,7 +44,7 @@
 	<%-- 댓글 쓰기 --%>
 	<div class="comment-wirte d-flex border-top mt-2">
 		<input type="text" class="form-control border-0 mr-2 comment-input" placeholder="댓글을 입력하세요.">
-		<button type="button" class="comment-btn btn btn-light">댓글 등록</button>
+		<button type="button" class="comment-btn btn btn-light" data-post-id="${post.id}" data-user-id="${userId}">댓글 등록</button>
 		
 	</div>
 </div>
@@ -126,6 +126,32 @@
 					alert("게시물을 삭제하는데 실패했습니다.");
 				}
 			});
+		});
+		
+		//	댓글 쓰기
+		$(".comment-btn").on('click', function() {
+			//	로그인 여부
+			let userId = $(this).data("user-id");
+			if (!userId) {
+				alert("로그인을 해주세요.");
+				location.href = "/user/sign-in-view";
+				return;
+			}
+			
+			//	댓글이 쓰여질 글번호 가져오기
+			let postId = $(this).data("post-id");
+			
+			let content = $(this).siblings("input").val().trim();
+			if (!content) {
+				alert("댓글 내용을 입력하세요.");
+				return;
+			}
+			
+			$.ajax({
+				//	request
+				type:
+			});
+			
 		});
 	});
 </script>
