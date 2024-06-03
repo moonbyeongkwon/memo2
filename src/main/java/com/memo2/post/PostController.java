@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.memo2.comment.bo.CommentBO;
+import com.memo2.comment.domain.CommentView;
 import com.memo2.post.bo.PostBO;
 import com.memo2.post.domain.Post;
 import com.memo2.post.domain.PostView;
@@ -19,6 +21,9 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/post")
 public class PostController {
 
+	@Autowired
+	private CommentBO commentBO;
+	
 	@Autowired
 	private PostBO postBO;
 	
@@ -85,6 +90,10 @@ public class PostController {
 		//	select DB - userId, postId
 		Post post = postBO.getPostByPostId(postId);
 		
+		List<CommentView> commentViewList = commentBO.generateCommentViewList(postId);
+		
+		
+		model.addAttribute("commentViewList", commentViewList);
 		model.addAttribute("post", post);
 		model.addAttribute("viewName", "post/postDetail");
 		return "template/layout";

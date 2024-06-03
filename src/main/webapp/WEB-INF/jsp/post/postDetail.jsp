@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="w-50">
 	<h1>게시글</h1>
-	
+	<div class="post-info">
+		글쓴이: ${postView.user.name}
+	</div>
+	<hr>
 	<c:if test="${userId == post.userId}">
 	<input type="text" id="subject" class="form-control" placeholder="제목을 입력하세요." value="${post.subject}">
 	<textarea id="content" class="form-control" placeholder="내용을 입력하세요." rows="10">${post.content}</textarea>
@@ -41,6 +44,17 @@
 	</c:if>
 </div>
 <div>
+<%-- 댓글 목록 --%>
+<div class="comment-list m-2">
+	<%-- 댓글 내용들 --%>
+	<c:forEach items="${commentViewList}" var="commentView">
+	<div class="comments m-1">
+		<span class="font-weight-bold">${commentView.user.name}</span>
+		<span>${commentView.comment.content}</span>
+	</div>
+	</c:forEach>
+</div>
+
 	<%-- 댓글 쓰기 --%>
 	<div class="comment-wirte d-flex border-top mt-2">
 		<input type="text" class="form-control border-0 mr-2 comment-input" placeholder="댓글을 입력하세요.">
@@ -149,7 +163,22 @@
 			
 			$.ajax({
 				//	request
-				type:
+				type:"POST"
+				, url:"/comment/create"
+				, data:{"postId":postId, "content":content}
+			
+				//	response
+				, success:function(data) {
+					if (data.code == 200) {
+						location.reload(true);
+					} else if (data.code == 500) {
+						alert(data.error_message);
+						location.href = "/user/sign-in-view";
+					}
+				}
+				, error:function(e) {
+					alert("댓글 작성에 실패했습니다");
+				}
 			});
 			
 		});
