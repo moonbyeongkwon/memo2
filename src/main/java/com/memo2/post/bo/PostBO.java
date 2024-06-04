@@ -98,6 +98,8 @@ public class PostBO {
 		
 		return postViewList;
 	}
+	
+	
 	public Post getPostByPostIdUserId(int postId, int userId) {
 		return postMapper.selectPostByPostIdUserId(postId, userId);
 	}

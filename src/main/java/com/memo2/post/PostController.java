@@ -93,6 +93,7 @@ public class PostController {
 		List<CommentView> commentViewList = commentBO.generateCommentViewList(postId);
 		
 		
+		
 		model.addAttribute("commentViewList", commentViewList);
 		model.addAttribute("post", post);
 		model.addAttribute("viewName", "post/postDetail");
