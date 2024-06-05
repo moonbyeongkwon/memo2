@@ -3,6 +3,7 @@ package com.memo2.user.bo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.memo2.post.bo.PostBO;
 import com.memo2.user.entity.UserEntity;
 import com.memo2.user.repository.UserRepository;
 
@@ -11,6 +12,11 @@ public class UserBO {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private PostBO postBO;
+	
+	
 	public UserEntity getUserEntityByLoginId(String loginId) {
 		return userRepository.findByLoginId(loginId);
 	}
@@ -32,4 +38,6 @@ public class UserBO {
 	public UserEntity getUserEntityById(int userId) {
 		return userRepository.findById(userId).orElse(null);
 	}
+	
+	
 }

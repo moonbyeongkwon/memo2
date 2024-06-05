@@ -79,6 +79,20 @@ public class PostBO {
 		return postMapper.selectPostByPostId(postId);
 	}
 	
+	//	postDetail
+	public PostView getPostDetailByPostId(int postId) {
+		//	postView에 post채우기
+		PostView postDetailView = new PostView();
+		Post post = postMapper.selectPostByPostId(postId);
+		postDetailView.setPost(post);
+		
+		//	postView에 user채우기
+		UserEntity user = userBO.getUserEntityById(post.getUserId());
+		postDetailView.setUser(user);
+		
+		return postDetailView;
+	}
+	
 	public List<PostView> generatePostViewList(Integer userId, Integer prevId, Integer nextId) {
 		List<PostView> postViewList = new ArrayList<>();
 		

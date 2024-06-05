@@ -92,10 +92,11 @@ public class PostController {
 		
 		List<CommentView> commentViewList = commentBO.generateCommentViewList(postId);
 		
-		
+		PostView postDetailView = postBO.getPostDetailByPostId(postId);
 		
 		model.addAttribute("commentViewList", commentViewList);
 		model.addAttribute("post", post);
+		model.addAttribute("postView", postDetailView);
 		model.addAttribute("viewName", "post/postDetail");
 		return "template/layout";
 	}

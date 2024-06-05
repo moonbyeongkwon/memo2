@@ -1,12 +1,12 @@
 package com.memo2.post.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.memo2.post.domain.Post;
+import com.memo2.post.domain.PostView;
 
 @Mapper
 public interface PostMapper {
@@ -33,6 +33,8 @@ public interface PostMapper {
 			@Param("imagePath") String imagePath);
 	
 	public Post selectPostByPostId(int postId);
+	
+	//public PostView selectPostDetailByPostId(int postId);
 	
 	public Post selectPostByPostIdUserId(
 			@Param("postId") int postId,
