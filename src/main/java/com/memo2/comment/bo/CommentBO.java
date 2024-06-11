@@ -43,4 +43,8 @@ public class CommentBO {
 		return commentViewList;
 	}
 	
+	public void deleteCommentByIdUserId(int commentId, int userId) {
+		commentMapper.deleteCommentByIdUserId(commentId, userId);
+	}
+	
 }

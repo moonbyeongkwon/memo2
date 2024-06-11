@@ -1,19 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div class="w-50">
 	<h1>게시글</h1>
+	<div class="post-subject">
+		<c:if test="${userId == post.userId}">
+		<input type="text" id="subject" class="form-control" placeholder="제목을 입력하세요." value="${post.subject}">
+		</c:if>
+		<c:if test="${userId != post.userId}">
+		<span>${post.subject}</span> <br><hr>
+	</c:if>
+	</div>
 	<div class="post-info">
-		글쓴이: ${postView.user.name}
+		<b>${postView.user.name}(${postView.user.loginId})</b><br>
+		작성일: <fmt:formatDate value="${post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:ss" />
 	</div>
 	<hr>
 	<c:if test="${userId == post.userId}">
-	<input type="text" id="subject" class="form-control" placeholder="제목을 입력하세요." value="${post.subject}">
 	<textarea id="content" class="form-control" placeholder="내용을 입력하세요." rows="10">${post.content}</textarea>
 	</c:if>
 	
 	<c:if test="${userId != post.userId}">
-	<span>${post.subject}</span> <br><hr>
 	<span>${post.content}</span>
 	</c:if>
 	
@@ -28,6 +37,8 @@
 	<div class="d-flex justify-content-end my-3">
 		<input type="file" id="file" accept=".jpg, .png, .gif">
 	</div>
+	
+	<%-- 추천 --%>
 	
 	<div class="d-flex justify=content-between">
 		<button type="button" id="delPostBtn" class="btn btn-secondary mr-4" data-post-id="${post.id}">삭제</button>
@@ -51,6 +62,14 @@
 	<div class="comments m-1">
 		<span class="font-weight-bold">${commentView.user.name}</span>
 		<span>${commentView.comment.content}</span>
+		
+		<%-- 댓글 삭제 버튼(자신의 댓글만 노출) --%>
+		<c:if test="${userId eq commentView.comment.userId}">
+		<a href="#" class="comment-del-btn" data-comment-id="${commentView.comment.id}">
+			<img src="https://media.istockphoto.com/id/1298957635/ko/%EB%B2%A1%ED%84%B0/%EA%B0%80%EB%B9%84%EC%A7%80-%EB%B9%88-%EC%84%A0-%EB%B2%A1%ED%84%B0-%EC%95%84%EC%9D%B4%EC%BD%98%EC%9E%85%EB%8B%88%EB%8B%A4-%ED%8E%B8%EC%A7%91-%EA%B0%80%EB%8A%A5%ED%95%9C-%EC%8A%A4%ED%8A%B8%EB%A1%9C%ED%81%AC-%ED%94%BD%EC%85%80-%EC%99%84%EB%B2%BD%ED%95%9C-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EB%B0%8F-%EC%9B%B9%EC%9A%A9.jpg?s=2048x2048&w=is&k=20&c=jsKvNn0xzLnB6Cxgzvi8JNhp_vT-TRrmfP3jtfZ6N8Y="
+			width="30" height="30">
+		</a>
+		</c:if>
 	</div>
 	</c:forEach>
 </div>
@@ -181,6 +200,31 @@
 				}
 			});
 			
+		});
+		
+		//	댓글 삭제
+		$(".comment-del-btn").on('click', function(e) {
+			e.preventDefault();
+			let commentId = $(this).data("comment-id");
+			
+			$.ajax({
+				//	request
+				type:"DELETE"
+				, url:"/comment/delete"
+				, data:{"commentId":commentId}
+			
+				//	response
+				, success:function(data) {
+					if (data.code == 200) {
+						location.reload(true);
+					} else {
+						alert(data.error_message);
+					}
+				}
+				, error:function(e) {
+					alert("댓글을 삭제하는데 실패했습니다.");
+				}
+			});
 		});
 	});
 </script>
