@@ -13,8 +13,7 @@ public class UserBO {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private PostBO postBO;
+	
 	
 	
 	public UserEntity getUserEntityByLoginId(String loginId) {
