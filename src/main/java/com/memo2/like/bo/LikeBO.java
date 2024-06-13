@@ -18,11 +18,11 @@ public class LikeBO {
 	public void likeToggle(int postId, int userId) {
 		if (getLikeCountByPostIdUserId(postId, userId) > 0) {
 			//	행이 존재하면 => 삭제
-			likeMapper.deleteLikeByPostIdUserId(postId, userId);
+			//likeMapper.deleteLikeByPostIdUserId(postId, userId);
 		} else {
 			//	존재하면 => 추가
-			likeMapper.insertLike(postId, userId);
-		}
+			//likeMapper.insertLike(postId, userId);
+		}//
 	}
 	
 }
