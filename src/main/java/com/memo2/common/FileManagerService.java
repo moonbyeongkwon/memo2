@@ -15,7 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class FileManagerService {
 
-	public static final String FILE_UPLOAD_PATH = "D:\\문병권\\6_spring_project\\memo_2\\images/";
+	//public static final String FILE_UPLOAD_PATH = "D:\\문병권\\6_spring_project\\memo_2\\images/";
+	public static final String FILE_UPLOAD_PATH = "/home/ec2-user/images/";
 	
 	//	input: file 원본, userLoginId
 	//	output: path
